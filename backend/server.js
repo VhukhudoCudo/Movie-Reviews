@@ -8,29 +8,30 @@ const reviewRoutes = require('./routes/reviews.js');
 
 const app = express();
 
-// CORS configuration to allow both local dev and deployed frontend
+// CORS: allow your deployed frontend
 app.use(cors({
-  origin: [
-    'http://localhost:3000', 
-    'https://movie-reviews-qo9a.onrender.com' // deployed frontend
-  ],
+  origin: 'https://movie-reviews-qo9a.onrender.com',
   credentials: true
 }));
 
 app.use(express.json());
+
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false }
+  cookie: { secure: false } // keep false for HTTP; true if using HTTPS only
 }));
 
+// Connect to MongoDB
 mongoose.connect(process.env.MONGO_URL)
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('MongoDB error:', err));
 
+// Routes
 app.use('/auth', authRoutes);
 app.use('/reviews', reviewRoutes);
 
+// Use the Render backend URL in console log if needed
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server running on Render at port ${PORT}`));
