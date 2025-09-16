@@ -9,7 +9,7 @@ const reviewRoutes = require('./routes/reviews.js');
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://movie-reviews-qo9a.onrender.com',
   credentials: true
 }));
 app.use(express.json());
