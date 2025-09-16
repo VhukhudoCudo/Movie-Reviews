@@ -21,6 +21,6 @@
     "express": "^4.19.2",
     "express-session": "^1.18.2",
     "ip-address": "^8.1.0",
-    "mongoose": "^7.8.0"
+    "mongoose": "^8.18.1"
   }
 }
