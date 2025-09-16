@@ -12,8 +12,8 @@ export default function AuthPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = `http://localhost:5000/auth/${mode}`;
-    try {
+ const url = `https://movie-reviews-s63z.onrender.com/auth/${mode}`;
+  try {
       await axios.post(url, { username, password });
       navigate('/reviews');
     } catch (err) {
