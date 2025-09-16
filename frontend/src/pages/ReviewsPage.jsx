@@ -11,7 +11,7 @@ export default function ReviewsPage() {
 
   const fetchReviews = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/reviews');
+      const res = await axios.get('https://movie-reviews-s63z.onrender.com/reviews');
       setReviews(res.data);
     } catch (err) {
       console.error(err);
@@ -23,11 +23,11 @@ export default function ReviewsPage() {
     try {
       if (editing) {
         // Edit review
-        await axios.put(`http://localhost:5000/reviews/${editing._id}`, { movie, review });
+        await axios.put(`https://movie-reviews-s63z.onrender.com/reviews/${editing._id}`, { movie, review });
         setEditing(null); // Reset editing state
       } else {
         // Add new review
-        await axios.post('http://localhost:5000/reviews', { movie, review });
+        await axios.post('https://movie-reviews-s63z.onrender.com/reviews', { movie, review });
       }
       setMovie('');
       setReview('');
@@ -39,7 +39,7 @@ export default function ReviewsPage() {
 
   const deleteReview = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/reviews/${id}`);
+      await axios.delete(`https://movie-reviews-s63z.onrender.com/reviews/${id}`);
       fetchReviews();
     } catch (err) {
       alert('Failed to delete review');
