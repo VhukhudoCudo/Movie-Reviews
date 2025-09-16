@@ -8,19 +8,23 @@ const reviewRoutes = require('./routes/reviews.js');
 
 const app = express();
 
-// CORS: allow your deployed frontend
+// CORS: allow deployed frontend with credentials
 app.use(cors({
-  origin: 'https://movie-reviews-qo9a.onrender.com',
+  origin: 'https://movie-reviews-qo9a.onrender.com', // your frontend link
   credentials: true
 }));
 
 app.use(express.json());
 
+// Session config for HTTPS (Render uses HTTPS)
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false } // keep false for HTTP; true if using HTTPS only
+  cookie: { 
+    secure: true,       // must be true for HTTPS
+    sameSite: 'none'    // required for cross-site cookies
+  }
 }));
 
 // Connect to MongoDB
@@ -32,6 +36,5 @@ mongoose.connect(process.env.MONGO_URL)
 app.use('/auth', authRoutes);
 app.use('/reviews', reviewRoutes);
 
-// Use the Render backend URL in console log if needed
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on Render at port ${PORT}`));
